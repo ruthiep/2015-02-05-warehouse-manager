@@ -1,10 +1,13 @@
 require 'pry'
+require 'sqlite3'
+DATABASE = SQLite3::Database.new('warehouse_database.db')
 require_relative "db_setup"
 require_relative 'Location'
 require_relative 'Category'
 require_relative "Product"
 require_relative "driver_methods"
 include DriverMethods
+
 binding.pry
 
 menu_prompt
@@ -17,15 +20,15 @@ until input.downcase == "quit"
   when "1"
     add_location
   when "2"
-    #methods
+    #edit location
   when "3"
-    #methods
+    delete_location
   when "4"
-    #methodsmethodsmethods
+    add_product
   when "5"
-    #methodsmethodsmethods
+    #edit product
   when "6"
-    #methodsmethodsmethods
+    #delete product
   when "7"
     menu_prompt
  else
@@ -36,4 +39,3 @@ until input.downcase == "quit"
  end
     
 end
-

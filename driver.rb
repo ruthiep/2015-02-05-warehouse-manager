@@ -9,6 +9,20 @@ require_relative "driver_methods"
 include DriverMethods
 
 binding.pry
+# Class: Driver
+#
+# Tracks items in the grocery warehouse.
+#
+# Attributes:
+# @options         - Hash: stores the information about each product, including:
+# @serial_number   - The product number/sku for the item in the warehouse.
+# @category_id     - The category in the store to which the item belongs.
+#
+#
+# Public Methods:
+# 
+# 
+
 
 menu_prompt
 

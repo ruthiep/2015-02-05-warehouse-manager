@@ -18,16 +18,16 @@
 # Public Methods:
 # #edit_record
 # #save
-# #
-# #
-# #
-# #
+# .find
+# .search_where
+# .delete_record
+# #insert
 # #
 # 
 
 class Product
   attr_reader :id
-  attr_accessor  :serial_number, :name, :description, :cost, :quantity,
+  attr_accessor :serial_number, :name, :description, :cost, :quantity,
    :location_id, :category_id
    
   def initialize(options)
@@ -41,22 +41,21 @@ class Product
     @id = options["id"]
   end
   
-  # Public: #edit_record
-  # Adds members to the hash.
+  # Public: #save
+  # Saves the updated records.
   #
   # Parameters:
-  # changed_item    - String: the old value in the record.
-  # column_name     - String: the column for the item to be updated.
-  # new_value       - String: the new value to be updated.
+  # attributes              - Array: an array for the column headings                                            (attributes).
+  # query_components_array: - Array:  an array for the search values.
+  # changed_item            - String: the old value in the record.
   #
   #
   # Returns:
-  # 
+  # nil
   #
   # State changes:
-  # changes the value of the record in the database.
-  
-   
+  # Updates the records in the database.
+    
   #make like save method
   def save
     attributes = []
@@ -83,12 +82,42 @@ class Product
 
     DATABASE.execute("UPDATE products SET #{query_string} WHERE id = #{id}")
   end
+  
+  # Public: .find
+  # Fetches items from the database based on the search criteria.
+  #
+  # Parameters:
+  # id_to_find          - Integer: the id number to search for in the database.
+  # result              - Array: an array to hold the search results.
+  # record_details      - Array: an array to hold the first row of the results.
+  #
+  #
+  # Returns:
+  # returns the matching record for the specified ID.
+  #
+  # State changes:
+  # none.
+  
    
   def self.find(id_to_find)
     result = DATABASE.execute("SELECT * FROM products WHERE id = #{id_to_find}")
     record_details = result[0]
     self.new(record_details)
   end
+  
+  # Public: .search_where
+  # Fetches items from the database based on the search criteria.
+  #
+  # Parameters:
+  # search_for            - key(column) to search.
+  # user_search           - The value to match.
+  # search                - User_search formatted.
+  # search_results        - Array: The search results based on the search_for                                  criteria.   
+  # Returns: 
+  # returns the search_results array.
+  #
+  # State changes:
+  # none.
   
   #searches for products based on a user's selected field
   def self.search_where(search_for, user_search)
@@ -106,6 +135,19 @@ class Product
     search_results
   end
   
+  # Public: .delete_records
+  # Deletes item(s) from the database based on the search criteria.
+  #
+  # Parameters:
+  # id_to_remove          - Integer: ID value of the rows to delete.
+  # 
+  #
+  # Returns: 
+  # none
+  #
+  # State changes:
+  # Values are deleted from the database.
+  
   #shouldn't need much else.
   def self.delete_record(id_to_remove)
     DATABASE.execute("DELETE FROM products WHERE id = #{id_to_remove}")
@@ -121,6 +163,25 @@ class Product
     @category_id = options["category_id"]
     @id = options["id"]
   end
+  
+  # Public: insert
+  # Inserts the updated items into the database.
+  #
+  # Parameters:
+  # id_to_remove          - Integer: ID value of the rows to delete.
+  # @serial_number        - String: The serial number of the entry.
+  # @name                 - String: The name of the entry.
+  # @description          - String: The description of the entry.
+  # @cost                 - Integer: The cost of the entry.
+  # @quantity             - Integer: The quantity of the entry.
+  # @location_id          - Integer: The location_id of the entry.
+  # @category_id          - Integer: The category_id of the entry.
+  #
+  # Returns: 
+  # @id the primary key for the product key.
+  #
+  # State changes:
+  # Selected values are updated in the database.
   
   def insert 
     DATABASE.execute("INSERT INTO products (serial_number, name, description,

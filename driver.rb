@@ -66,15 +66,16 @@ until input.downcase == "quit"
     end
     
   when "4"
-    submenu("SEARCH")
+    search_criteria = ""
+    search_submenu
     sub_input = gets.chomp
-    case sub_input
-    when "1"
-      location_list
-    when "2"
-      product_list
-    when "3"
+    if sub_input == "1"
+      category_to_search  #returns a string
+    elsif sub_input == "2"
+      category_to_search
+    elsif sub_input == "3"
       category_list
+
     else puts "RETURNING TO MAIN MENU"
     end
     

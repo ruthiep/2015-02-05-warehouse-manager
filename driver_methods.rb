@@ -326,4 +326,35 @@ end
   def enter_edit(object, field, change)
     object.instance_variable_set(field, change)
   end
+  
+  def search_submenu
+    puts "WHICH TABLE WOULD YOU LIKE TO SEARCH: 1-LOCATIONS, 2-PRODUCTS, OR 3-CATEGORIES?"
+    puts "-"*60
+    search = gets.chomp 
+    puts "which item"
+    look_for = gets.chomp 
+    results = [] 
+    case search
+    when "1"
+      
+      results = Location.search_where("locations", "name", look_for)
+      puts results
+#     when "products"
+#       product_list
+#       results = Product.find("products", 1)
+#     when "categories"
+#       category_list
+    else puts "RETURNING TO MAIN MENU"
+  end
+    
+  end
+  
+  def category_to_search
+    puts "PLEASE ENTER ID TO SEARCH FOR MORE INFORMATION"
+    puts "-"*60
+    search_cat = gets.chomp
+  end
+     
+  
+    
 end#module_end

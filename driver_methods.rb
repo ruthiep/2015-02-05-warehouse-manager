@@ -224,13 +224,45 @@ module DriverMethods
     end
   end  
   
-  def edit_category
-    
-  end
+  #error thinks Meat is a method when running through the block.
+  # def edit_category
+#     category_list
+#     puts "ENTER CATEGORY TO EDIT(BY NUMBER)"
+#     category_to_edit = gets.to_i
+#     category = Category.find("categories", category_to_edit)
+#     category.display_attributes
+#     raw_field = ""
+#     until raw_field.downcase == "done"
+#       puts "ENTER FIELD TO EDIT"
+#       raw_field = gets.chomp
+#       puts "ENTER CHANGE"
+#       raw_change = gets.chomp
+#       verify_edit(category, raw_field, raw_change)
+#       puts "ENTER ANOTHER FIELD TO EDIT(TYPE DONE TO FINISH)"
+#       raw_field = gets.chomp
+#     end
+#     puts "PRESS 1 TO SAVE CHANGES, PRESS ANYTHING ELSE TO CANCEL"
+#     verify = gets.chomp
+#     if verify == "1"
+#       category.save("categories")
+#       puts "CHANGES SAVED"
+#     else puts "PROCESS CANCELLED"
+#     end
+#   end
   
-  def delete_category
-    
+def delete_category
+  category_list
+  puts "ENTER CATEGORY ID TO DELETE"
+  category_to_delete = gets.to_i
+  puts "ARE YOU SURE YOU WANT TO DO THIS?"
+  puts "PRESS 1 TO CONTINUE, PRESS ANYTHING OTHER THAN 1 TO CANCEL DELETION"
+  verify = gets.chomp
+  if verify == "1"
+    Category.delete_record(category_to_delete)
+    puts "CATEGORY ##{category_to_delete} DELETED"
+  else puts "PROCESS CANCELLED"
   end
+end  
   
   def location_list
     locations = DATABASE.execute("SELECT * FROM locations")  

@@ -2,54 +2,61 @@ require 'pry'
 require 'sqlite3'
 DATABASE = SQLite3::Database.new('warehouse_database.db')
 require_relative "db_setup"
-require_relative 'Location'
-require_relative 'Category'
-require_relative "Product"
+require_relative "database_methods"
+require_relative 'location'
+require_relative 'category'
+require_relative "product"
 require_relative "driver_methods"
 include DriverMethods
 
-binding.pry
-# Class: Driver
-#
-# Tracks items in the grocery warehouse.
-#
-# Attributes:
-# @options         - Hash: stores the information about each product, including:
-# @serial_number   - The product number/sku for the item in the warehouse.
-# @category_id     - The category in the store to which the item belongs.
-#
-#
-# Public Methods:
-# 
-# 
-
+#binding.pry
 
 menu_prompt
 
 input = ""
 until input.downcase == "quit"
+  puts "ENTER MENU SELECTION"
   input = gets.chomp
 
   case input
   when "1"
-    add_location
+    submenu("LOCATION")
+    sub_input = gets.chomp
+    case sub_input
+    when "1"
+      add_location
+    when "2"
+      edit_location
+    when "3"
+      delete_location
+    when "4"
+      location_list
+    else puts "RETURNING TO MAIN MENU"
+    end
+    
   when "2"
-    #edit location
+    submenu("PRODUCT")
+    sub_input = gets.chomp
+    case sub_input
+    when "1"
+      add_product
+    when "2"
+      edit_product
+    when "3"
+      delete_product
+    when "4"
+      product_list
+    else puts "RETURNING TO MAIN MENU"
+    end
   when "3"
-    delete_location
+    submenu("CATEGORY")
   when "4"
-    add_product
-  when "5"
-    #edit product
-  when "6"
-    #delete product
-  when "7"
-    menu_prompt
+    product_list
  else
    if input.downcase == "quit"
      puts "GOOD-BYE"
    else puts "INVALID INPUT, TRY AGAIN"
    end
  end
-    
+  menu_prompt 
 end

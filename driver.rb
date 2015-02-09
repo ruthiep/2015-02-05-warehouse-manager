@@ -30,7 +30,7 @@ until input.downcase == "quit"
     when "3"
       delete_location
     when "4"
-      location_list
+      fetch_location
     else puts "RETURNING TO MAIN MENU"
     end
     
@@ -45,8 +45,7 @@ until input.downcase == "quit"
     when "3"
       delete_product
     when "4"
-      product_list
-      display_attributes
+      fetch_product
     else puts "RETURNING TO MAIN MENU"
     end
     
@@ -61,21 +60,20 @@ until input.downcase == "quit"
     when "3"
       delete_category
     when "4"
-      category_list
+      fetch_category
     else puts "RETURNING TO MAIN MENU"
     end
     
   when "4"
-    search_criteria = ""
     search_submenu
     sub_input = gets.chomp
-    if sub_input == "1"
-      category_to_search  #returns a string
-    elsif sub_input == "2"
-      category_to_search
-    elsif sub_input == "3"
-      category_list
-
+    case sub_input
+    when "1"
+      general_search
+    when "2"
+      search_by_location
+    when "3"
+      search_by_category
     else puts "RETURNING TO MAIN MENU"
     end
     

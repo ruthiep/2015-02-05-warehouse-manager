@@ -3,22 +3,12 @@
 # Stores the warehouse locations for the products.
 #
 # Attributes:
-# @options         - Hash: stores the information about each product, including:
-#  
-# @serial_number   - The product number/sku for the item in the warehouse.
-# @name            - The name of the product.
-# @description     - A description of the product.
-# @cost            - The price of the product
-# @quantity        - The quantity on hand.
-# @location_id     - The location in the warehouse where the product is kept.
-# @category_id     - The category in the store to which the item belongs.
+# @id                - Integer: The id number of the Object.
+# @name              - String: The name of the Object. 
 #
 #
 # Public Methods:
-# #save
-# .find
 # .delete_record
-# #insert
 # #
 # 
 
